@@ -7,10 +7,11 @@ class Database
 {
 
 private:
-    int *cd_stock;
-    int *dvd_stock;
-    int *magazine_stock;
-    int *sell_count;
+    int cd_stock = 100;
+    int dvd_stock = 200;
+    int magazine_stock  = 100;
+    int book_stock = 200;
+    int sell_count;
 
 public:
     void restock_product();
@@ -27,17 +28,18 @@ public:
 class Cd_stock
 {
 
-public:
+private:
     int pop;
     int rock;
     int rap;
     int lyrics;
+
 };
 
 class Dvd_stock
 {
 
-public:
+private:
     int action;
     int comedy;
     int horror;
@@ -47,7 +49,7 @@ public:
 class Magazine_stock
 {
 
-public:
+private:
     int novel;
     int review;
     int manga;
@@ -57,7 +59,7 @@ public:
 class Book_stock
 {
 
-public:
+private:
     int fiction;
     int non_fiction;
     int thriller;

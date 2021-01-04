@@ -1,5 +1,5 @@
-#ifndef _DATABASE_H_
-#define _DATABASE_H_
+#ifndef _MUSIC_SHOP_H_
+#define _MUSIC_SHOP_H_
 
 #include <iostream>
 // declaring the classes
@@ -7,13 +7,15 @@ class Database
 {
 
 private:
-    int cd_stock = 100;
-    int dvd_stock = 200;
-    int magazine_stock  = 100;
-    int book_stock = 200;
+    int cd_stock;
+    int dvd_stock;
+    int magazine_stock;
+    int book_stock;
     int sell_count;
 
 public:
+    void user();
+    
     void restock_product();
 
     void sell_item();
@@ -22,7 +24,9 @@ public:
 
     void sale_report();
 
-    void user();
+    void after_action();
+
+    void reader(std::string);
 };
 
 class Cd_stock
@@ -33,7 +37,6 @@ private:
     int rock;
     int rap;
     int lyrics;
-
 };
 
 class Dvd_stock

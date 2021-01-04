@@ -8,10 +8,10 @@ CXXFLAGS = -c -Wall
 music_shop : music_shop.o methods.o
 	$(CXX) music_shop.o methods.o -o music_shop
 #compiling the file which I will need for compiling the main one
-music_shop.o : music_shop.cpp database.h
+music_shop.o : music_shop.cpp music_shop.h
 	$(CXX) $(CXXFLAGS) music_shop.cpp
 #compiling the second file which I will need for compiling the man one
-methods.o : methods.cpp database.h
+methods.o : methods.cpp music_shop.h
 	$(CXX) $(CXXFLAGS) methods.cpp
 
 # creating a PHONY target as the clean method is

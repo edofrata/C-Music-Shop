@@ -1,4 +1,5 @@
-620
-250
-210
-230
+Total_Products: 850
+CDs: 140
+DVDs: 170
+Magazines: 285
+Books: 235

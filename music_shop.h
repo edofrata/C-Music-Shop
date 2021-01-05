@@ -7,15 +7,19 @@ class Database
 {
 
 private:
+    int total_products;
+    // Cd_stock cd;
+    // Dvd_stock dvd;
+    // Magazine_stock magazine;
+    // Book_stock book;
     int cd_stock;
     int dvd_stock;
     int magazine_stock;
     int book_stock;
-    int sell_count;
 
 public:
     void user();
-    
+
     void restock_product();
 
     void sell_item();
@@ -26,46 +30,54 @@ public:
 
     void after_action();
 
+    void selling(int& product);
+
     void reader(std::string);
+
+    void writer();
 };
 
 class Cd_stock
 {
 
-private:
-    int pop;
-    int rock;
-    int rap;
-    int lyrics;
+public:
+    int stock;
+    // int pop;
+    // int rock;
+    // int rap;
+    // int lyrics;
 };
 
 class Dvd_stock
 {
 
-private:
-    int action;
-    int comedy;
-    int horror;
-    int fantasy;
+public:
+    int stock;
+    // int action;
+    // int comedy;
+    // int horror;
+    // int fantasy;
 };
 
 class Magazine_stock
 {
 
-private:
-    int novel;
-    int review;
-    int manga;
-    int article;
+public:
+    int stock;
+    // int novel;
+    // int review;
+    // int manga;
+    // int article;
 };
 
 class Book_stock
 {
 
-private:
-    int fiction;
-    int non_fiction;
-    int thriller;
-    int fairytale;
+public:
+    int stock;
+    // int fiction;
+    // int non_fiction;
+    // int thriller;
+    // int fairytale;
 };
 #endif

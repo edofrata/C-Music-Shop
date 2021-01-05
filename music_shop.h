@@ -6,18 +6,9 @@
 class Database
 {
 
-private:
-    int total_products;
-    // Cd_stock cd;
-    // Dvd_stock dvd;
-    // Magazine_stock magazine;
-    // Book_stock book;
-    int cd_stock;
-    int dvd_stock;
-    int magazine_stock;
-    int book_stock;
-
 public:
+    int total_products;
+ 
     void user();
 
     void restock_product();
@@ -27,20 +18,25 @@ public:
     void update_stock();
 
     void sale_report();
+};
+
+class Functionality : public Database
+{
+
+public:
 
     void after_action();
 
-    void selling(int& product);
+    void selling(int &product);
 
-    void reader(std::string);
+    void reader();
 
     void writer();
 };
 
-class Cd_stock
+struct Cd_stock
 {
 
-public:
     int stock;
     // int pop;
     // int rock;
@@ -48,10 +44,8 @@ public:
     // int lyrics;
 };
 
-class Dvd_stock
+struct Dvd_stock
 {
-
-public:
     int stock;
     // int action;
     // int comedy;
@@ -59,21 +53,20 @@ public:
     // int fantasy;
 };
 
-class Magazine_stock
+struct Magazine_stock
 {
 
-public:
     int stock;
     // int novel;
     // int review;
     // int manga;
     // int article;
+
 };
 
-class Book_stock
+struct Book_stock
 {
 
-public:
     int stock;
     // int fiction;
     // int non_fiction;

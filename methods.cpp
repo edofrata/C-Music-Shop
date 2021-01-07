@@ -108,7 +108,8 @@ void Database::restock_product()
 
         do
         {
-            cout << "\n" << "You have selected: " << names[code] << endl;
+            cout << "\n"
+                 << "You have selected: " << names[code] << endl;
             cout << "Please insert the amount: ";
             cin >> new_total;
 
@@ -119,7 +120,7 @@ void Database::restock_product()
         // save the value back to the file
         func.writer("database_files/CDs.txt");
 
-         cout << "The item has been restocked, "
+        cout << "The item has been restocked, "
              << names[code] << " and now  " << quantities[code]
              << " are the CDs available" << endl;
 
@@ -142,9 +143,10 @@ void Database::restock_product()
 
         } while (!std::count(quantities.begin(), quantities.end(), quantities[code]));
 
-       do
+        do
         {
-            cout << "\n" << "You have selected: " << names[code] << endl;
+            cout << "\n"
+                 << "You have selected: " << names[code] << endl;
             cout << "Please insert the amount: ";
             cin >> new_total;
 
@@ -171,22 +173,23 @@ void Database::restock_product()
 
         do
         {
-            
+
             // inserting the serial code, to understand which Item to take;
             cout << "Please insert Serial Code: ";
             cin >> code;
 
         } while (!std::count(quantities.begin(), quantities.end(), quantities[code]));
 
-     do
+        do
         {
-            cout << "\n" << "You have selected: " << names[code] << endl;
+            cout << "\n"
+                 << "You have selected: " << names[code] << endl;
             cout << "Please insert the amount: ";
             cin >> new_total;
 
         } while (new_total > total_products);
 
-// restocking the product
+        // restocking the product
         quantities[code] += new_total;
         total_products += new_total;
         func.writer("database_files/Magazines.txt");
@@ -213,14 +216,14 @@ void Database::restock_product()
 
         } while (!std::count(quantities.begin(), quantities.end(), quantities[code]));
 
-      do
+        do
         {
-            cout << "\n" << "You have selected: " << names[code] << endl;
+            cout << "\n"
+                 << "You have selected: " << names[code] << endl;
             cout << "Please insert the amount: ";
             cin >> new_total;
 
         } while (new_total > total_products);
-
 
         quantities[code] += new_total;
         total_products += new_total;
@@ -244,10 +247,6 @@ void Database::sell_item()
 {
     int product_choice;
 
-    ofstream new_stock;
-
-    //func.reader();
-
     cout << '\n'
          << "What Product would you like to buy " << '\n'
          << " CDs --------> 0 " << '\n'
@@ -263,19 +262,19 @@ void Database::sell_item()
 
     case 0:
         func.reader("database_files/CDs.txt", cd.id, cd.name, cd.price, cd.stock);
-        func.selling(cd.stock, "database_files/CDs.txt", cd.id, cd.name, cd.price, cd.stock);
+        func.selling(cd.stock, "database_files/CDs.txt");
         break;
     case 1:
         func.reader("database_files/DVDs.txt", dvd.id, dvd.name, dvd.price, dvd.stock);
-        func.selling(dvd.stock, "database_files/DVDs.txt", cd.id, cd.name, cd.price, cd.stock);
+        func.selling(dvd.stock, "database_files/DVDs.txt");
         break;
     case 2:
         func.reader("database_files/Magazines.txt", magazine.id, magazine.name, magazine.price, magazine.stock);
-        func.selling(magazine.stock,"database_files/DVDs.txt", cd.id, cd.name, cd.price, cd.stock);
+        func.selling(magazine.stock, "database_files/Magazines.txt");
         break;
     case 3:
         func.reader("database_files/Books.txt", book.id, book.name, book.price, book.stock);
-        func.selling(book.stock,"database_files/DVDs.txt", cd.id, cd.name, cd.price, cd.stock);
+        func.selling(book.stock, "database_files/Books.txt");
         break;
     default:
         cout << "We do not have that product yet" << endl;
@@ -290,7 +289,6 @@ void Database::add_item()
 
 void Database::sale_report()
 {
-
 }
 
 // CHOICE AFTER AN ACTION HAS BEEN MADE
@@ -358,48 +356,73 @@ void Functionality::reader(std::string path, std::string id, std::string name, d
 void Functionality::writer(std::string path)
 {
 
-        ofstream writer(path);
+    ofstream writer(path);
 
-        if (!writer.is_open())
-        {
-            cerr << "Error occurred" << endl;
-            exit(1);
-        }
+    if (!writer.is_open())
+    {
+        cerr << "Error occurred" << endl;
+        exit(1);
+    }
 
-        for(int i = 0; i < names.size(); i++){
+    for (int i = 0; i < names.size(); i++)
+    {
 
-         writer << names[i] << " " << prices[i] << " " << quantities[i] << endl;
-
-        }
-
+        writer << names[i] << " " << prices[i] << " " << quantities[i] << endl;
+    }
 }
 
 // SELLING ITEM METHOD
-void Functionality::selling(int &product, std::string path, std::string id, std::string name, double price, int quantity)
+void Functionality::selling(int &product, std::string path)
 {
 
-    int product_amount;
+    int product_chosen;
+    int product_quantity;
     int yes_or_no;
+    int confirm;
 
-    cout << "Available: " << product << '\n'
-         << "Please insert how many items you would like to purchase: " << endl;
-
-    cin >> product_amount;
-
-    if (product_amount > product)
+    do
     {
+        cout << "Available: " << total_products << '\n'
+             << "Please insert which item you would like to purchase: ";
+        cin >> product_chosen;
+    } while (!std::count(quantities.begin(), quantities.end(), quantities[product_chosen]));
 
-        cout << "I am sorry but we do not have that many at the moment" << endl;
-        sell_item();
+
+     do
+        {
+            cout << "You have Selected " << names[product_chosen] << endl;
+            cout << "Please Select how many you would like to buy: " << endl;
+            cin >> product_quantity;
+
+        } while (product_quantity > quantities[product_chosen]);
+
+    do
+    {
+        cout << "You have selected " << names[product_chosen] << " and the amount is " << product_quantity
+             << " \n"
+             << "Are you sure you want to proceed?"
+             << "\n"
+             << "Yes ---> 1"
+             << "\n"
+             << "No ----> 0"
+             << "\n"
+             << "Answer: " << endl;
+
+        cin >> confirm;
+    } while (confirm != 1 || 0);
+
+    if (confirm == 0)
+    {
+        func.selling(product, path);
     }
-    else
+    else if (confirm == 1)
     {
 
-        product -= product_amount;
-        total_products -= product_amount;
+       
+        quantities[product_chosen] -= product_quantity;
         writer(path);
 
-
+        cout << "THANK YOU" << endl;
         cout << "Would you like to buy something else? " << '\n'
              << " Yes --> 0" << '\n'
              << "  No --> 1" << '\n'
@@ -420,4 +443,3 @@ void Functionality::selling(int &product, std::string path, std::string id, std:
         }
     }
 }
-

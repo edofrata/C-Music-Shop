@@ -28,7 +28,7 @@ class Functionality : public Database
 public:
     void after_action();
 
-    void selling(int &product, std::string path, std::string id, std::string name, double price, int quantity);
+    void selling(int &product, std::string path);
 
     void reader(std::string path, std::string id, std::string name, double price, int quantity);
 

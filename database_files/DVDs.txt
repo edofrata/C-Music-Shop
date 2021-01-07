@@ -1,4 +1,4 @@
-Clouds 15.99 25
-Yesterday 12.99 10
-Soul 8.99 20
-Aladdin 13.99 20
+Elvis 12.99 10
+Beethoven 10.99 20
+Mozart 14.99 25
+Queen 17.99 20

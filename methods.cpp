@@ -387,14 +387,13 @@ void Functionality::selling(int &product, std::string path)
         cin >> product_chosen;
     } while (!std::count(quantities.begin(), quantities.end(), quantities[product_chosen]));
 
+    do
+    {
+        cout << "You have Selected " << names[product_chosen] << endl;
+        cout << "Please Select how many you would like to buy: " << endl;
+        cin >> product_quantity;
 
-     do
-        {
-            cout << "You have Selected " << names[product_chosen] << endl;
-            cout << "Please Select how many you would like to buy: " << endl;
-            cin >> product_quantity;
-
-        } while (product_quantity > quantities[product_chosen]);
+    } while (product_quantity > quantities[product_chosen]);
 
     do
     {
@@ -406,27 +405,26 @@ void Functionality::selling(int &product, std::string path)
              << "\n"
              << "No ----> 0"
              << "\n"
-             << "Answer: " << endl;
+             << "Answer: ";
 
         cin >> confirm;
-    } while (confirm != 1 || 0);
+    } while (confirm > 1);
 
     if (confirm == 0)
     {
-        func.selling(product, path);
+        sell_item();
     }
     else if (confirm == 1)
     {
 
-       
         quantities[product_chosen] -= product_quantity;
         writer(path);
 
         cout << "THANK YOU" << endl;
         cout << "Would you like to buy something else? " << '\n'
-             << " Yes --> 0" << '\n'
-             << "  No --> 1" << '\n'
-             << " Type your choice: " << endl;
+             << " Yes --> 1" << '\n'
+             << "  No --> 0" << '\n'
+             << " Type your choice: ";
 
         cin >> yes_or_no;
 
@@ -434,11 +432,13 @@ void Functionality::selling(int &product, std::string path)
         {
 
         case 0:
-            sell_item();
-            break;
-        case 1:
             cout << "Thank You for buying from us!";
             user();
+            break;
+            
+        case 1:
+
+            sell_item();
             break;
         }
     }

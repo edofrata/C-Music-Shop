@@ -1,4 +1,4 @@
-Beatles 15.9 15
-Eminem 12.9 30
-Macklemore 7.99 35
+Beatles 15.9 10
+Eminem 12.9 25
+Macklemore 7.99 28
 Nirvana 10.9 20

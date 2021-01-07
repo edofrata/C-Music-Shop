@@ -243,6 +243,43 @@ void Database::restock_product()
     }
 }
 
+// Methods that adds the function
+void Database::add_item()
+{
+    int choice;
+
+    cout << "Where would you like to add the new item? " << '\n'
+         << " CDs --------> 0 " << '\n'
+         << " DVDs -------> 1 " << '\n'
+         << " Magazines --> 2 " << '\n'
+         << " Books ------> 3 " << '\n'
+         << "Please Select the product: ";
+
+    cin >> choice;
+
+    switch (choice)
+    {
+
+    case 0:
+        func.adding_item("database_files/CDs.txt", cd.id, cd.name, cd.price, cd.stock);
+        break;
+    case 1:
+        func.adding_item("database_files/DVDs.txt", dvd.id, dvd.name, dvd.price, dvd.stock);
+        break;
+
+    case 2:
+        func.adding_item("database_files/Magazines.txt", magazine.id, magazine.name, magazine.price, magazine.stock);
+        break;
+    case 3:
+        func.adding_item("database_files/Books.txt", book.id, book.name, book.price, book.stock);
+        break;
+    default:
+        cout << "Wrong format, Please Try Again: " << endl;
+        add_item();
+        break;
+    }
+}
+
 void Database::sell_item()
 {
     int product_choice;
@@ -281,10 +318,6 @@ void Database::sell_item()
         sell_item();
         break;
     }
-}
-
-void Database::add_item()
-{
 }
 
 void Database::sale_report()
@@ -435,11 +468,39 @@ void Functionality::selling(int &product, std::string path)
             cout << "Thank You for buying from us!";
             user();
             break;
-            
+
         case 1:
 
             sell_item();
             break;
         }
     }
+}
+
+void Functionality::adding_item(std::string path, std::string id, std::string name, double price, int quantity)
+{
+
+    string name_product;
+    double price_product;
+    int quantity_product;
+
+    func.reader(path, id, name, price, quantity);
+
+    cout << "Please insert the name of the new product: " << endl;
+    cin >> name_product;
+
+    names.push_back(name_product);
+
+    cout << "Please insert the price of the product: " << endl;
+    cin >> price_product;
+
+    prices.push_back(price_product);
+
+    cout << "Please insert the quantity: " << endl;
+    cin >> quantity_product;
+
+    quantities.push_back(quantity_product);
+
+    cout << "The Item " << name_product << " has been added!" << endl;
+    func.writer(path);
 }

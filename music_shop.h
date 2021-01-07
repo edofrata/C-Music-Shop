@@ -33,6 +33,8 @@ public:
     void reader(std::string path, std::string id, std::string name, double price, int quantity);
 
     void writer(std::string path);
+
+    void adding_item(std::string path, std::string id, std::string name, double price, int quantity);
 };
 
 class Cd_stock : public Database

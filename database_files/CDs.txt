@@ -2,3 +2,4 @@ Beatles 15.9 10
 Eminem 12.9 22
 Macklemore 7.99 28
 Nirvana 10.9 15
+Test 7.99 10

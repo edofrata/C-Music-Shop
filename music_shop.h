@@ -32,7 +32,7 @@ public:
 
     void reader(std::string path, std::string id, std::string name, double price, int quantity);
 
-    void writer(std::string path, std::string id, std::string name, double price, int quantity);
+    void writer(std::string path);
 };
 
 class Cd_stock : public Database

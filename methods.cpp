@@ -117,7 +117,7 @@ void Database::restock_product()
         quantities[code] += new_total;
         total_products += new_total;
         // save the value back to the file
-        func.writer("database_files/CDs.txt", cd.id, cd.name, cd.price, cd.stock);
+        func.writer("database_files/CDs.txt");
 
          cout << "The item has been restocked, "
              << names[code] << " and now  " << quantities[code]
@@ -152,7 +152,7 @@ void Database::restock_product()
 
         quantities[code] += new_total;
         total_products += new_total;
-        func.writer("database_files/DVDs.txt", dvd.id, dvd.name, dvd.price, dvd.stock);
+        func.writer("database_files/DVDs.txt");
 
         cout << "The item has been restocked, "
              << names[code] << " and now  " << quantities[code]
@@ -189,8 +189,7 @@ void Database::restock_product()
 // restocking the product
         quantities[code] += new_total;
         total_products += new_total;
-        func.writer("database_files/Magazines.txt", magazine.id, magazine.name,
-                    magazine.price, magazine.stock);
+        func.writer("database_files/Magazines.txt");
 
         cout << "The item has been restocked, "
              << names[code] << " and now  " << quantities[code]
@@ -225,7 +224,7 @@ void Database::restock_product()
 
         quantities[code] += new_total;
         total_products += new_total;
-        func.writer("database_files/Books.txt", book.id, book.name, book.price, book.stock);
+        func.writer("database_files/Books.txt");
 
         cout << "The item has been restocked, "
              << names[code] << " and now  " << quantities[code]
@@ -356,7 +355,7 @@ void Functionality::reader(std::string path, std::string id, std::string name, d
     }
 }
 
-void Functionality::writer(std::string path, std::string id, std::string name, double price, int quantity)
+void Functionality::writer(std::string path)
 {
 
         ofstream writer(path);
@@ -370,7 +369,7 @@ void Functionality::writer(std::string path, std::string id, std::string name, d
         for(int i = 0; i < names.size(); i++){
 
          writer << names[i] << " " << prices[i] << " " << quantities[i] << endl;
-         
+
         }
 
 }
@@ -398,7 +397,7 @@ void Functionality::selling(int &product, std::string path, std::string id, std:
 
         product -= product_amount;
         total_products -= product_amount;
-        writer(path, id, name, price, quantity);
+        writer(path);
 
 
         cout << "Would you like to buy something else? " << '\n'

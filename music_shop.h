@@ -2,20 +2,22 @@
 #define _MUSIC_SHOP_H_
 
 #include <iostream>
+#include <string>
+using namespace std;
 // declaring the classes
 class Database
 {
 
 public:
     int total_products;
- 
+
     void user();
 
     void restock_product();
 
-    void sell_item();
+    void add_item();
 
-    void update_stock();
+    void sell_item();
 
     void sale_report();
 };
@@ -24,53 +26,50 @@ class Functionality : public Database
 {
 
 public:
-
     void after_action();
 
-    void selling(int &product);
+    void selling(int &product, std::string path, std::string id, std::string name, double price, int quantity);
 
-    void reader();
+    void reader(std::string path, std::string id, std::string name, double price, int quantity);
 
-    void writer();
+    void writer(std::string path, std::string id, std::string name, double price, int quantity);
 };
 
-struct Cd_stock
+class Cd_stock : public Database
 {
-
+public:
     int stock;
-    // int pop;
-    // int rock;
-    // int rap;
-    // int lyrics;
+    string name;
+    string id = "C00";
+    double price;
+
+
+
 };
 
 struct Dvd_stock
 {
     int stock;
-    // int action;
-    // int comedy;
-    // int horror;
-    // int fantasy;
+    string name;
+    string id = "D00";
+    double price;
 };
 
 struct Magazine_stock
 {
 
     int stock;
-    // int novel;
-    // int review;
-    // int manga;
-    // int article;
-
+    string name;
+    string id = "M00";
+    double price;
 };
 
 struct Book_stock
 {
 
     int stock;
-    // int fiction;
-    // int non_fiction;
-    // int thriller;
-    // int fairytale;
+    string name;
+    string id = "B00";
+    double price;
 };
 #endif

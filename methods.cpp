@@ -3,6 +3,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <numeric>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,32 +14,18 @@ Dvd_stock dvd;
 Magazine_stock magazine;
 Book_stock book;
 
+vector<string> names;
+vector<double> prices;
+vector<int> quantities;
+
 void Database::user()
 {
-    // int choice;
     int action;
-
-    // cout << "Are you an Employee or Customer?" << '\n'
-    //      << " Employee --> 0" << '\n'
-    //      << " Customer --> 1" << endl;
-
-    // cin >> choice;
-
-    // if (choice == 1)
-    // {
-
-    // cout << "Your are a Customer,  What would you like to buy?" << endl;
-    // sell_item();
-    // }
-    // else if (choice == 0)
-    // {
-
-    // cout << "You are an Employee" << endl;
 
     cout << '\n'
          << "Please Select the action you would like to do" << '\n'
          << " Restock Product -----> 0 " << '\n'
-         << " Update Stock Level --> 1 " << '\n'
+         << " Add new item --------> 1 " << '\n'
          << " Sell Item -----------> 2 " << '\n'
          << " Sale Report ---------> 3 " << '\n'
          << '\n'
@@ -53,7 +41,7 @@ void Database::user()
         break;
 
     case 1:
-        func.update_stock();
+        func.add_item();
         break;
 
     case 2:
@@ -81,22 +69,16 @@ void Database::user()
         }
     }
 }
-// else
-// {
-
-//     cout << "Wrong format, Try again" << endl;
-//     user();
-// }
-// }
 
 // RESTOCK PRODUCT METHOD
 void Database::restock_product()
 {
-  
+
     int choice;
     int new_total;
+    int code;
 
-    func.reader();
+    // func.reader();
 
     cout << "What Product would you like to restock? " << '\n'
          << " CDs --------> 0 " << '\n'
@@ -112,77 +94,142 @@ void Database::restock_product()
 
         // RESTOCKING THE VALUE OF THE CDS
     case 0:
+        // reads the cds file
+        func.reader("database_files/CDs.txt", cd.id, cd.name, cd.price, cd.stock);
         cout << '\n'
-             << "The value is: " << cd.stock << endl;
+             << "The value is: " << total_products << endl;
 
-        cout << "Please insert the amount: ";
-        cin >> new_total;
+        do
+        {
+            cout << "Please insert Serial Code: ";
+            cin >> code;
 
-        cd.stock += new_total;
+        } while (!std::count(quantities.begin(), quantities.end(), quantities[code]));
+
+        do
+        {
+            cout << "\n" << "You have selected: " << names[code] << endl;
+            cout << "Please insert the amount: ";
+            cin >> new_total;
+
+        } while (new_total > total_products);
+
+        quantities[code] += new_total;
         total_products += new_total;
         // save the value back to the file
-        func.writer();
+        func.writer("database_files/CDs.txt", cd.id, cd.name, cd.price, cd.stock);
 
-        cout << "The item has been restocked, "
-             << cd.stock << " "
-             << "are the CDs available" << endl;
+         cout << "The item has been restocked, "
+             << names[code] << " and now  " << quantities[code]
+             << " are the CDs available" << endl;
 
         func.after_action();
         break;
 
         // RESTOCKING THE VALUE OF THE DVDS
     case 1:
+
+        // reads the dvd files
+        func.reader("database_files/DVDs.txt", dvd.id, dvd.name, dvd.price, dvd.stock);
         cout << '\n'
-             << "The value is: " << dvd.stock << endl;
+             << "The value is: " << total_products << endl;
 
-        cout << "Please insert the amount: ";
-        cin >> new_total;
+        do
+        {
+            // inserting the serial code, to understand which Item to take;
+            cout << "Please insert Serial Code: ";
+            cin >> code;
 
-        dvd.stock += new_total;
+        } while (!std::count(quantities.begin(), quantities.end(), quantities[code]));
+
+       do
+        {
+            cout << "\n" << "You have selected: " << names[code] << endl;
+            cout << "Please insert the amount: ";
+            cin >> new_total;
+
+        } while (new_total > total_products);
+
+        quantities[code] += new_total;
         total_products += new_total;
-        func.writer();
+        func.writer("database_files/DVDs.txt", dvd.id, dvd.name, dvd.price, dvd.stock);
 
         cout << "The item has been restocked, "
-             << dvd.stock << " "
-             << "are the DVDs available" << endl;
+             << names[code] << " and now  " << quantities[code]
+             << " are the DVDs available" << endl;
 
         func.after_action();
         break;
 
         // RESTOCKING THE VALUE OF THE MAGAZINES
     case 2:
+        // reads the magazines file
+        func.reader("database_files/Magazines.txt", magazine.id, magazine.name,
+                    magazine.price, magazine.stock);
         cout << '\n'
-             << "The value is: " << magazine.stock << endl;
+             << "The value is: " << total_products << endl;
 
-        cout << "Please insert the amount: ";
-        cin >> new_total;
+        do
+        {
+            
+            // inserting the serial code, to understand which Item to take;
+            cout << "Please insert Serial Code: ";
+            cin >> code;
 
-        magazine.stock += new_total;
+        } while (!std::count(quantities.begin(), quantities.end(), quantities[code]));
+
+     do
+        {
+            cout << "\n" << "You have selected: " << names[code] << endl;
+            cout << "Please insert the amount: ";
+            cin >> new_total;
+
+        } while (new_total > total_products);
+
+// restocking the product
+        quantities[code] += new_total;
         total_products += new_total;
-        func.writer();
+        func.writer("database_files/Magazines.txt", magazine.id, magazine.name,
+                    magazine.price, magazine.stock);
 
         cout << "The item has been restocked, "
-             << magazine.stock << " "
-             << "are the magazines available" << endl;
+             << names[code] << " and now  " << quantities[code]
+             << " are the Magazines available" << endl;
 
         func.after_action();
         break;
 
         // RESTOCKING THE VALUE OF THE BOOKS
     case 3:
+        // reads the books files
+        func.reader("database_files/Books.txt", book.id, book.name, book.price, book.stock);
         cout << '\n'
-             << " The value is: " << book.stock << endl;
+             << " The value is: " << total_products << endl;
 
-        cout << "Please insert the amount: ";
-        cin >> new_total;
+        do
+        {
+            // inserting the serial code, to understand which Item to take;
+            cout << "Please insert Serial Code: ";
+            cin >> code;
 
-        book.stock += new_total;
+        } while (!std::count(quantities.begin(), quantities.end(), quantities[code]));
+
+      do
+        {
+            cout << "\n" << "You have selected: " << names[code] << endl;
+            cout << "Please insert the amount: ";
+            cin >> new_total;
+
+        } while (new_total > total_products);
+
+
+        quantities[code] += new_total;
         total_products += new_total;
-        func.writer();
+        func.writer("database_files/Books.txt", book.id, book.name, book.price, book.stock);
 
         cout << "The item has been restocked, "
-             << book.stock << " "
-             << "are the books available" << endl;
+             << names[code] << " and now  " << quantities[code]
+             << " are the Books available" << endl;
 
         func.after_action();
         break;
@@ -200,7 +247,7 @@ void Database::sell_item()
 
     ofstream new_stock;
 
-    func.reader();
+    //func.reader();
 
     cout << '\n'
          << "What Product would you like to buy " << '\n'
@@ -216,16 +263,20 @@ void Database::sell_item()
     {
 
     case 0:
-        func.selling(cd.stock);
+        func.reader("database_files/CDs.txt", cd.id, cd.name, cd.price, cd.stock);
+        func.selling(cd.stock, "database_files/CDs.txt", cd.id, cd.name, cd.price, cd.stock);
         break;
     case 1:
-        func.selling(dvd.stock);
+        func.reader("database_files/DVDs.txt", dvd.id, dvd.name, dvd.price, dvd.stock);
+        func.selling(dvd.stock, "database_files/DVDs.txt", cd.id, cd.name, cd.price, cd.stock);
         break;
     case 2:
-        func.selling(magazine.stock);
+        func.reader("database_files/Magazines.txt", magazine.id, magazine.name, magazine.price, magazine.stock);
+        func.selling(magazine.stock,"database_files/DVDs.txt", cd.id, cd.name, cd.price, cd.stock);
         break;
     case 3:
-        func.selling(book.stock);
+        func.reader("database_files/Books.txt", book.id, book.name, book.price, book.stock);
+        func.selling(book.stock,"database_files/DVDs.txt", cd.id, cd.name, cd.price, cd.stock);
         break;
     default:
         cout << "We do not have that product yet" << endl;
@@ -234,27 +285,13 @@ void Database::sell_item()
     }
 }
 
-void Database::update_stock()
+void Database::add_item()
 {
 }
 
 void Database::sale_report()
 {
 
-    ifstream sale;
-    // reading the sale report file
-    sale.open("sale_report.csv");
-
-    if (!sale.fail())
-    {
-
-        cerr << "The file couldn't open";
-    }
-    while (sale.good())
-    {
-        string line;
-        getline(sale, line, ',');
-    }
 }
 
 // CHOICE AFTER AN ACTION HAS BEEN MADE
@@ -282,95 +319,64 @@ void Functionality::after_action()
 }
 
 // FILE READER AND CHOICE MENU
-void Functionality::reader()
+void Functionality::reader(std::string path, std::string id, std::string name, double price, int quantity)
 {
     ifstream stock;
+    // cleaning vectors
+    //ID.clear();
+    names.clear();
+    prices.clear();
+    quantities.clear();
 
-    stock.open("database_files/database.txt");
-    string name_stock;
-    int amount;
+    stock.open(path);
     if (stock.fail())
     {
         cerr << "Error occurred" << endl;
         exit(1);
     }
 
-    int i = 0;
-    while (stock >> name_stock >> amount)
+    while (stock >> name >> price >> quantity)
     {
-
-        cout << " " << name_stock << amount << endl;
-
-        switch (i)
-        {
-
-        case 0:
-            total_products = amount;
-            break;
-
-        case 1:
-            cd.stock = amount;
-            break;
-
-        case 2:
-            dvd.stock = amount;
-            break;
-
-        case 3:
-            magazine.stock = amount;
-            break;
-
-        case 4:
-            book.stock = amount;
-            break;
-
-        default:
-            cout << " TOO MANY VARIABLES" << endl;
-            break;
-        }
-
-        i++;
+        names.push_back(name);
+        prices.push_back(price);
+        quantities.push_back(quantity);
     }
 
-    // stock >> cd_stock >> dvd_stock >> magazine_stock >> book_stock;
+    total_products = accumulate(quantities.begin(), quantities.end(), 0);
 
-    // cout << '\n'
-    //      << first << " AVAILABLE " << endl;
-    // cout << "--------------------------------" << endl;
+    for (int i = 0; i < names.size(); i++)
+    {
 
-    // cout << " CD_stock :      " << cd_stock << endl;
-    // cout << "--------------------------------" << endl;
-
-    // cout << " DVD_stock:      " << dvd_stock << endl;
-    // cout << "--------------------------------" << endl;
-
-    // cout << " Magazine_stock: " << magazine_stock << endl;
-    // cout << "--------------------------------" << endl;
-
-    // cout << " Book_stock:     " << book_stock << endl;
-    // cout << "--------------------------------" << endl;
+        cout << "\n"
+             << id << i << " "
+             << names.at(i) << " "
+             << "£" << prices.at(i) << " : "
+             << quantities.at(i) << "\n"
+             << endl;
+    }
 }
 
-void Functionality::writer()
+void Functionality::writer(std::string path, std::string id, std::string name, double price, int quantity)
 {
 
-    ofstream writer("database_files/database.txt");
+        ofstream writer(path);
 
-    if (!writer.is_open())
-    {
-        cerr << "Error occurred" << endl;
-        exit(1);
-    }
+        if (!writer.is_open())
+        {
+            cerr << "Error occurred" << endl;
+            exit(1);
+        }
 
-    writer << "Total_Products: " << total_products << endl;
-    writer << "CDs: " << cd.stock << endl;
-    writer << "DVDs: " << dvd.stock << endl;
-    writer << "Magazines: " << magazine.stock << endl;
-    writer << "Books: " << book.stock << endl;
+        for(int i = 0; i < names.size(); i++){
+
+         writer << names[i] << " " << prices[i] << " " << quantities[i] << endl;
+         
+        }
+
 }
 
 // SELLING ITEM METHOD
-void Functionality::selling(int &product)
+void Functionality::selling(int &product, std::string path, std::string id, std::string name, double price, int quantity)
 {
 
     int product_amount;
@@ -392,7 +398,9 @@ void Functionality::selling(int &product)
 
         product -= product_amount;
         total_products -= product_amount;
-        writer();
+        writer(path, id, name, price, quantity);
+
+
         cout << "Would you like to buy something else? " << '\n'
              << " Yes --> 0" << '\n'
              << "  No --> 1" << '\n'
@@ -413,13 +421,4 @@ void Functionality::selling(int &product)
         }
     }
 }
-// new_stock.open("database_files/database.txt");
-// stocks.push_back(*ptr);
-// stocks.push_back(dvd_stock);
-// stocks.push_back(magazine_stock);
-// stocks.push_back(book_stock);
 
-// for (int stock : stocks)
-// {
-//     new_stock << stock << endl;
-// }

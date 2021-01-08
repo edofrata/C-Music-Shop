@@ -52,9 +52,6 @@ public:
     string name;
     string id = "C00";
     double price;
-
-
-
 };
 
 struct Dvd_stock

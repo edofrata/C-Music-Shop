@@ -1,10 +1,9 @@
-#include "music_shop.h"
-#include <iostream>
+#include "music_shop.hpp"
 #include <fstream>
-#include <string>
-#include <vector>
 #include <numeric>
 #include <algorithm>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
@@ -17,6 +16,7 @@ Book_stock book;
 vector<string> names;
 vector<double> prices;
 vector<int> quantities;
+vector<string> reports;
 
 void Database::user()
 {
@@ -118,7 +118,7 @@ void Database::restock_product()
         quantities[code] += new_total;
         total_products += new_total;
         // save the value back to the file
-        func.writer("database_files/CDs.txt");
+        func.stock_writer("database_files/CDs.txt");
 
         cout << "The item has been restocked, "
              << names[code] << " and now  " << quantities[code]
@@ -154,7 +154,7 @@ void Database::restock_product()
 
         quantities[code] += new_total;
         total_products += new_total;
-        func.writer("database_files/DVDs.txt");
+        func.stock_writer("database_files/DVDs.txt");
 
         cout << "The item has been restocked, "
              << names[code] << " and now  " << quantities[code]
@@ -192,7 +192,7 @@ void Database::restock_product()
         // restocking the product
         quantities[code] += new_total;
         total_products += new_total;
-        func.writer("database_files/Magazines.txt");
+        func.stock_writer("database_files/Magazines.txt");
 
         cout << "The item has been restocked, "
              << names[code] << " and now  " << quantities[code]
@@ -227,7 +227,7 @@ void Database::restock_product()
 
         quantities[code] += new_total;
         total_products += new_total;
-        func.writer("database_files/Books.txt");
+        func.stock_writer("database_files/Books.txt");
 
         cout << "The item has been restocked, "
              << names[code] << " and now  " << quantities[code]
@@ -322,6 +322,73 @@ void Database::sell_item()
 
 void Database::sale_report()
 {
+    int choice_file;
+    int os_choice;
+
+    if (reports.empty())
+    {
+
+        cout << "\n"
+             << "TODAY NOTHING HAS BEEN SOLD YET" << endl;
+    }
+
+    cout << endl;
+
+    for (int i = 0; i < reports.size(); i++)
+    {
+
+        cout << reports.at(i) << endl;
+    }
+
+    cout << "\n"
+         << "Would you like to see the FULL SALE REPORT?"
+         << "\n"
+         << "Yes ---> 1"
+         << "\n"
+         << " No ---> 0"
+         << "\n"
+         << "Please select a choice: ";
+
+    cin >> choice_file;
+
+    if (choice_file == 1)
+    {
+
+        cout << " Which OS you have? "
+             << "\n"
+             << " Windows/Linux ---> 0 "
+             << "\n"
+             << " MacOS  -----------> 1"
+             << "\n"
+             << "Select Choice: ";
+
+        cin >> os_choice;
+        switch (os_choice)
+        {
+
+        case 0:
+            system("database_file/sale_report.txt");
+            user();
+            break;
+        case 1:
+
+            system("open database_files/sale_report.txt");
+            user();
+            break;
+        default:
+            cout << " There is not such OS choice " << endl;
+            sale_report();
+            break;
+        }
+    }
+    else if (choice_file == 0)
+    {
+        user();
+    }
+    else
+    {
+        cout << " WRONG FORMAT! " << endl;
+    }
 }
 
 // CHOICE AFTER AN ACTION HAS BEEN MADE
@@ -353,7 +420,6 @@ void Functionality::reader(std::string path, std::string id, std::string name, d
 {
     ifstream stock;
     // cleaning vectors
-    //ID.clear();
     names.clear();
     prices.clear();
     quantities.clear();
@@ -386,7 +452,7 @@ void Functionality::reader(std::string path, std::string id, std::string name, d
     }
 }
 
-void Functionality::writer(std::string path)
+void Functionality::stock_writer(std::string path)
 {
 
     ofstream writer(path);
@@ -423,7 +489,7 @@ void Functionality::selling(int &product, std::string path)
     do
     {
         cout << "You have Selected " << names[product_chosen] << endl;
-        cout << "Please Select how many you would like to buy: " << endl;
+        cout << "Please Select how many you would like to buy: ";
         cin >> product_quantity;
 
     } while (product_quantity > quantities[product_chosen]);
@@ -451,8 +517,8 @@ void Functionality::selling(int &product, std::string path)
     {
 
         quantities[product_chosen] -= product_quantity;
-        writer(path);
-
+        stock_writer(path);
+        vector_writer(names[product_chosen], product_quantity);
         cout << "THANK YOU" << endl;
         cout << "Would you like to buy something else? " << '\n'
              << " Yes --> 1" << '\n'
@@ -502,5 +568,45 @@ void Functionality::adding_item(std::string path, std::string id, std::string na
     quantities.push_back(quantity_product);
 
     cout << "The Item " << name_product << " has been added!" << endl;
-    func.writer(path);
+    func.stock_writer(path);
+}
+
+// it returns a vector of sales of the day
+vector<string> Functionality::vector_writer(std::string item, int quantity)
+{
+
+    ofstream sale("database_files/sale_report.txt", ios::app);
+
+    if (!sale.is_open())
+    {
+        cerr << "Error occurred" << endl;
+        exit(1);
+    }
+    string sale_sentence = to_string(quantity) + " of " + item + " have been sold " + current_time();
+
+    //writing the sentence on the file;
+    sale << sale_sentence << endl;
+
+    sale_sentence = to_string(quantity) + " of " + item + " have been sold today";
+    // adding the sentence to the vector;
+    reports.push_back(sale_sentence);
+
+    return reports;
+}
+
+// takes the current time and it returns a string
+string Functionality::current_time()
+{
+
+    string current_time;
+
+    // current date/time based on current system
+    time_t now = time(0);
+
+    // convert now to string form
+    char *dt = ctime(&now);
+
+    current_time = dt;
+
+    return current_time;
 }

@@ -3,8 +3,10 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 // declaring the classes
+
 class Database
 {
 
@@ -20,6 +22,8 @@ public:
     void sell_item();
 
     void sale_report();
+    
+    
 };
 
 class Functionality : public Database
@@ -32,9 +36,13 @@ public:
 
     void reader(std::string path, std::string id, std::string name, double price, int quantity);
 
-    void writer(std::string path);
+    void stock_writer(std::string path);
 
     void adding_item(std::string path, std::string id, std::string name, double price, int quantity);
+
+    vector<string> vector_writer(std:: string item, int quantity);
+
+    string current_time();
 };
 
 class Cd_stock : public Database

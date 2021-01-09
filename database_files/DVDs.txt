@@ -3,4 +3,3 @@ Beethoven 10.99 30
 Mozart 14.99 35
 Queen 17.99 25
 DVDTest 2.9 15
-Ciao 7 20

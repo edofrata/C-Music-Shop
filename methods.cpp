@@ -419,9 +419,8 @@ void Database::sale_report()
 
             cin >> os_choice;
         } while ((choice_file < 0 || choice_file > 1) || cin.fail());
-        
-        
-         switch (os_choice)
+
+        switch (os_choice)
         {
 
         case 0:
@@ -536,12 +535,16 @@ void Functionality::selling(int &product, std::string path)
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Available: " << total_products << '\n'
+        cout << "\nAvailable: " << total_products << '\n'
              << "Please insert the integer of the product eg. 001 = 1" << endl;
         cout << "\n"
              << "Please insert which item you would like to purchase: ";
         cin >> product_chosen;
-    } while (!std::count(quantities.begin(), quantities.end(), quantities[product_chosen]) || cin.fail());
+
+        if (quantities[product_chosen] <= 0)
+            cout << "OUT OF STOCK \nIt will be back soon! " << endl;
+
+    } while (!std::count(quantities.begin(), quantities.end(), quantities[product_chosen]) || cin.fail() || quantities[product_chosen] <= 0);
 
     do
     {
@@ -550,6 +553,9 @@ void Functionality::selling(int &product, std::string path)
         cout << "You have Selected: " << names[product_chosen] << " Available: " << quantities[product_chosen] << endl;
         cout << "Please Select how many you would like to buy: ";
         cin >> product_quantity;
+
+        if (product_quantity > quantities[product_chosen])
+            cout << "\nI am sorry but we don't have that many at the moment" << endl;
 
     } while (product_quantity > quantities[product_chosen] || cin.fail());
 

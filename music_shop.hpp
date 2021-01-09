@@ -45,16 +45,15 @@ public:
     string current_time();
 };
 
-class Cd_stock : public Database
+struct Cd_stock : public Database
 {
-public:
     int stock;
     string name;
     string id = "C00";
     double price;
 };
 
-struct Dvd_stock
+struct Dvd_stock : public Database
 {
     int stock;
     string name;
@@ -62,7 +61,7 @@ struct Dvd_stock
     double price;
 };
 
-struct Magazine_stock
+struct Magazine_stock : public Database
 {
 
     int stock;
@@ -71,7 +70,7 @@ struct Magazine_stock
     double price;
 };
 
-struct Book_stock
+struct Book_stock : public Database
 {
 
     int stock;

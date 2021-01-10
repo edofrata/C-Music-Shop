@@ -49,7 +49,7 @@ struct Cd_stock : public Database
 {
     int stock;
     string name;
-    string id = "C00";
+    const string id = "C00";
     double price;
 };
 
@@ -57,7 +57,7 @@ struct Dvd_stock : public Database
 {
     int stock;
     string name;
-    string id = "D00";
+    const string id = "D00";
     double price;
 };
 
@@ -66,7 +66,7 @@ struct Magazine_stock : public Database
 
     int stock;
     string name;
-    string id = "M00";
+    const string id = "M00";
     double price;
 };
 
@@ -75,7 +75,7 @@ struct Book_stock : public Database
 
     int stock;
     string name;
-    string id = "B00";
+    const string id = "B00";
     double price;
 };
 #endif

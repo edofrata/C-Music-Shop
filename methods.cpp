@@ -6,13 +6,14 @@
 #include <cstdlib>
 
 using namespace std;
-
+// Creating objects
 Functionality func;
 Cd_stock cd;
 Dvd_stock dvd;
 Magazine_stock magazine;
 Book_stock book;
 
+//Declaring vectors
 vector<string> names;
 vector<double> prices;
 vector<int> quantities;
@@ -322,7 +323,7 @@ void Database::sell_item()
     int product_choice;
 
     cout << '\n'
-         << "What Product would you like to buy " << '\n'
+         << "What Product would you like to sell" << '\n'
          << " CDs --------> 0 " << '\n'
          << " DVDs -------> 1 " << '\n'
          << " Magazines --> 2 " << '\n'
@@ -447,19 +448,18 @@ void Functionality::after_action()
     int choice;
     do
     {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cout << '\n'
              << " Restock another product --> 0 " << '\n'
              << " Main Menu ----------------> 1 " << '\n'
-             << " Exit ---------------------> 2 " << '\n'
              << "Select your choice: ";
         cin >> choice;
-    } while (choice > 2 || choice < 0);
+    } while ((choice > 2 || choice < 0) || cin.fail());
     if (choice == 0)
         restock_product();
     else if (choice == 1)
         user();
-    else if (choice == 2)
-        exit(1);
     else
         cout << "Wrong format, Try again!";
     func.after_action();
@@ -550,8 +550,8 @@ void Functionality::selling(int &product, std::string path)
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "You have Selected: " << names[product_chosen] << " Available: " << quantities[product_chosen] << endl;
-        cout << "Please Select how many you would like to buy: ";
+        cout << "\nYou have Selected: " << names[product_chosen] << " Available: " << quantities[product_chosen] << endl;
+        cout << "Please Select how many you would like to sell: ";
         cin >> product_quantity;
 
         if (product_quantity > quantities[product_chosen])
@@ -592,7 +592,7 @@ void Functionality::selling(int &product, std::string path)
         {
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "\nWould you like to buy something else? " << '\n'
+            cout << "\nWould you like to sell something else? " << '\n'
                  << " Yes --> 1" << '\n'
                  << "  No --> 0" << '\n'
                  << " Type your choice: ";

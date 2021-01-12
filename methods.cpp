@@ -480,9 +480,7 @@ void Functionality::reader(std::string path, std::string id, std::string name, d
         cerr << "Error occurred" << endl;
         exit(1);
     }
-    // while(getline(stock,name)){
-    // names.push_back(name);
-    // }
+
     while (stock >> name >> price >> quantity)
     {
         names.push_back(name);
@@ -630,7 +628,8 @@ void Functionality::adding_item(std::string path, std::string id, std::string na
 
         //  needs to accept only strings
         cout << "Please insert the name of the new product: " << endl;
-        cin >> name_product;
+        //cin >> name_product;
+        getline(cin, name_product);
     } while (isdigit(name_product[0]));
 
     names.push_back(name_product);
@@ -722,3 +721,13 @@ string Functionality::current_time()
 
     return current_time;
 }
+
+    bool true_false(int x){
+
+
+        if (x == 0 || x == 3 || x == 6)
+        return 1;
+        else 
+        return 0;
+
+    }

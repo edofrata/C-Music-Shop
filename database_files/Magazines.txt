@@ -1,6 +1,5 @@
 Rock 5.99 20
 Guitars 8.99 20
 Pop 4.99 20
-Rap 12.99 30
+Rap 12.99 15
 Piano 6.99 10
-

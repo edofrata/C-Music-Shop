@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <fstream>
+
 using namespace std;
 // declaring the classes
 
@@ -22,8 +24,6 @@ public:
     void sell_item();
 
     void sale_report();
-    
-    
 };
 
 class Functionality : public Database
@@ -40,9 +40,11 @@ public:
 
     void adding_item(std::string path, std::string id, std::string name, double price, int quantity);
 
-    vector<string> vector_writer(std:: string item, int quantity);
+    vector<string> vector_writer(std::string item, int quantity);
 
     string current_time();
+
+    bool true_false(int x);
 };
 
 struct Cd_stock : public Database

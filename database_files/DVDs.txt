@@ -1,6 +1,7 @@
 Elvis 12.99 25
-Beethoven 10.99 30
-Mozart 14.99 35
+Beethoven 10.99 40
+Mozart 14.99 71
 Queen 17.99 30
 DVDTest 2.9 15
 Bob 8.29 15
+ 2.99 10

@@ -29,8 +29,7 @@ void Database::user()
          << " Add new item --------> 1 " << '\n'
          << " Sell Item -----------> 2 " << '\n'
          << " Sale Report ---------> 3 " << '\n'
-         << '\n'
-         << " Exit ----------------> 4" << '\n'
+         << " \nExit ----------------> 4" << '\n'
          << " Select your choice: ";
 
     cin >> action;
@@ -86,6 +85,7 @@ void Database::restock_product()
          << " DVDs -------> 1 " << '\n'
          << " Magazines --> 2 " << '\n'
          << " Books ------> 3 " << '\n'
+         << " \nMain Menu --> 4 " << '\n'
          << "Please Select the product: ";
 
     cin >> choice;
@@ -266,6 +266,10 @@ void Database::restock_product()
         func.after_action();
         break;
 
+    case 4:
+        user();
+        break;
+
     default:
         cout << "Wrong format! Please Try Again" << endl;
         restock_product();
@@ -283,6 +287,7 @@ void Database::add_item()
          << " DVDs -------> 1 " << '\n'
          << " Magazines --> 2 " << '\n'
          << " Books ------> 3 " << '\n'
+         << " \nMain Menu --> 4 " << '\n'
          << "Please Select the product: ";
 
     cin >> choice;
@@ -311,6 +316,9 @@ void Database::add_item()
     case 3:
         func.adding_item("database_files/Books.txt", book.id, book.name, book.price, book.stock);
         break;
+    case 4:
+        user();
+        break;
     default:
         cout << "Wrong format, Please Try Again: " << endl;
         add_item();
@@ -328,7 +336,9 @@ void Database::sell_item()
          << " DVDs -------> 1 " << '\n'
          << " Magazines --> 2 " << '\n'
          << " Books ------> 3 " << '\n'
-         << "Please Select the product: ";
+    
+         << " \nMain Menu --> 4" << '\n'
+         << "Please Select your choice: ";
 
     cin >> product_choice;
 
@@ -357,6 +367,9 @@ void Database::sell_item()
     case 3:
         func.reader("database_files/Books.txt", book.id, book.name, book.price, book.stock);
         func.selling(book.stock, "database_files/Books.txt");
+        break;
+    case 4:
+        user();
         break;
     default:
         cout << "We do not have that product yet" << endl;
@@ -419,7 +432,7 @@ void Database::sale_report()
                  << "\nSelect Choice: ";
 
             cin >> os_choice;
-        } while ((choice_file < 0 || choice_file > 1) || cin.fail());
+        } while ((os_choice < 0 || os_choice > 1) || cin.fail());
 
         switch (os_choice)
         {
@@ -552,10 +565,10 @@ void Functionality::selling(int &product, std::string path)
         cout << "Please Select how many you would like to sell: ";
         cin >> product_quantity;
 
-        if (product_quantity > quantities[product_chosen])
+        if ((product_quantity > quantities[product_chosen]))
             cout << "\nI am sorry but we don't have that many at the moment" << endl;
 
-    } while (product_quantity > quantities[product_chosen] || cin.fail());
+    } while ((product_quantity > quantities[product_chosen]) || (product_quantity == 0) || cin.fail());
 
     do
     {
@@ -573,7 +586,7 @@ void Functionality::selling(int &product, std::string path)
              << "Answer: ";
 
         cin >> confirm;
-    } while (confirm < 0 || confirm > 1 || cin.fail());
+    } while ((confirm < 0 || confirm > 1) || cin.fail());
 
     if (confirm == 0)
     {
@@ -722,12 +735,11 @@ string Functionality::current_time()
     return current_time;
 }
 
-    bool true_false(int x){
+bool true_false(int x)
+{
 
-
-        if (x == 0 || x == 3 || x == 6)
+    if (x == 0 || x == 3 || x == 6)
         return 1;
-        else 
+    else
         return 0;
-
-    }
+}

@@ -677,7 +677,6 @@ vector<string> Functionality::vector_writer(std::string item, int quantity)
 // takes the current time and it returns a string
 string Functionality::current_time()
 {
-
     string current_time;
 
     // current date/time based on current system
@@ -692,13 +691,13 @@ string Functionality::current_time()
 }
 int Functionality::get_os_name()
 {
-#ifdef _WIN32
-    return 0;
-#elif _WIN64
-    return 0;
-#elif __APPLE__ || __MACH__
-    return 1;
-#elif __linux__
-    return 2;
-#endif
+    #ifdef _WIN32
+        return 0;
+    #elif _WIN64
+        return 0;
+    #elif __APPLE__ || __MACH__
+        return 1;
+    #elif __linux__
+        return 2;
+    #endif
 }

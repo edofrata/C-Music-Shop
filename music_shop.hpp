@@ -14,9 +14,9 @@ class Database
 
 public:
     int total_products;
-
     void user();
 
+protected:
     void restock_product();
 
     void add_item();

@@ -8,7 +8,7 @@ node_modules/
 dist/
 
 #vscode folder
-.vscode
+/.vscode/*
 # Compiled files .o files
 *.o 
 

@@ -2,3 +2,4 @@ Beatles 15.9 30
 Eminem 12.9 25
 Macklemore 7.99 30
 Nirvana 10.9 10
+Metallica 26 30

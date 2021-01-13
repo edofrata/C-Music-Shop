@@ -43,8 +43,8 @@ public:
     vector<string> vector_writer(std::string item, int quantity);
 
     string current_time();
-
-    bool true_false(int x);
+    
+    int choice_product(std::string name);
 };
 
 struct Cd_stock : public Database

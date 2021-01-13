@@ -19,6 +19,7 @@ vector<double> prices;
 vector<int> quantities;
 vector<string> reports;
 
+// ---------------------------------------- Starting function ------------------------------
 void Database::user()
 {
     int action;
@@ -29,7 +30,7 @@ void Database::user()
          << " Add new item --------> 1 " << '\n'
          << " Sell Item -----------> 2 " << '\n'
          << " Sale Report ---------> 3 " << '\n'
-         << " \nExit ----------------> 4" << '\n'
+         << "\n Exit ----------------> 4" << '\n'
          << " Select your choice: ";
 
     cin >> action;
@@ -70,7 +71,7 @@ void Database::user()
     }
 }
 
-// RESTOCK PRODUCT METHOD
+// ---------------------------------------- RESTOCK PRODUCT METHOD -------------------------------
 void Database::restock_product()
 {
 
@@ -78,25 +79,7 @@ void Database::restock_product()
     int new_total;
     int code;
 
-    // func.reader();
-
-    cout << "What Product would you like to restock? " << '\n'
-         << " CDs --------> 0 " << '\n'
-         << " DVDs -------> 1 " << '\n'
-         << " Magazines --> 2 " << '\n'
-         << " Books ------> 3 " << '\n'
-         << " \nMain Menu --> 4 " << '\n'
-         << "Please Select the product: ";
-
-    cin >> choice;
-
-    if (cin.fail())
-    {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Wrong format! Please try again" << endl;
-        restock_product();
-    }
+    choice = func.choice_product("What Product would you like to restock");
 
     switch (choice)
     {
@@ -277,28 +260,12 @@ void Database::restock_product()
     }
 }
 
-// Methods that adds the function
+//------------------------------------------- METHODS THAT ADDS AN ITEM -------------------------
 void Database::add_item()
 {
     int choice;
 
-    cout << "Where would you like to add the new item? " << '\n'
-         << " CDs --------> 0 " << '\n'
-         << " DVDs -------> 1 " << '\n'
-         << " Magazines --> 2 " << '\n'
-         << " Books ------> 3 " << '\n'
-         << " \nMain Menu --> 4 " << '\n'
-         << "Please Select the product: ";
-
-    cin >> choice;
-
-    if (cin.fail())
-    {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Wrong format! Please try again" << endl;
-        add_item();
-    }
+    choice = func.choice_product("Where would you like to add the new item? ");
 
     switch (choice)
     {
@@ -326,29 +293,13 @@ void Database::add_item()
     }
 }
 
+//--------------------------------------SELL ITEM ----------------------------------
 void Database::sell_item()
 {
     int product_choice;
 
-    cout << '\n'
-         << "What Product would you like to sell" << '\n'
-         << " CDs --------> 0 " << '\n'
-         << " DVDs -------> 1 " << '\n'
-         << " Magazines --> 2 " << '\n'
-         << " Books ------> 3 " << '\n'
-    
-         << " \nMain Menu --> 4" << '\n'
-         << "Please Select your choice: ";
+    product_choice = func.choice_product("What Product would you like to sell");
 
-    cin >> product_choice;
-
-    if (cin.fail())
-    {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Wrong format! Please try again" << endl;
-        sell_item();
-    }
     switch (product_choice)
     {
 
@@ -377,7 +328,7 @@ void Database::sell_item()
         break;
     }
 }
-
+//--------------------------------------- SALE REPORT ------------------------------
 void Database::sale_report()
 {
     int choice_file;
@@ -402,14 +353,10 @@ void Database::sale_report()
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "\n"
-             << "Would you like to see the FULL SALE REPORT?"
-             << "\n"
-             << "Yes ---> 1"
-             << "\n"
-             << " No ---> 0"
-             << "\n"
-             << "Please select a choice: ";
+        cout << "\nWould you like to see the FULL SALE REPORT?"
+             << "\nYes ---> 1"
+             << "\n No ---> 0"
+             << "\nPlease select a choice: ";
 
         cin >> choice_file;
 
@@ -427,7 +374,7 @@ void Database::sale_report()
 
                  << " \nWindows/Linux ---> 0 "
 
-                 << " \nMacOS  ----------> 1"
+                 << " \nMacOS  ----------> 1 "
 
                  << "\nSelect Choice: ";
 
@@ -454,7 +401,7 @@ void Database::sale_report()
     }
 }
 
-// CHOICE AFTER AN ACTION HAS BEEN MADE
+// ----------------------------------------CHOICE AFTER AN ACTION HAS BEEN MADE----------------------------
 void Functionality::after_action()
 {
 
@@ -466,7 +413,7 @@ void Functionality::after_action()
         cout << '\n'
              << " Restock another product --> 0 " << '\n'
              << " Main Menu ----------------> 1 " << '\n'
-             << "Select your choice: ";
+             << " Select your choice: ";
         cin >> choice;
     } while ((choice > 2 || choice < 0) || cin.fail());
     if (choice == 0)
@@ -478,7 +425,7 @@ void Functionality::after_action()
     func.after_action();
 }
 
-// FILE READER AND CHOICE MENU
+// ---------------------------------- reads the file and prints it out -----------------------------------------
 void Functionality::reader(std::string path, std::string id, std::string name, double price, int quantity)
 {
     ifstream stock;
@@ -505,7 +452,6 @@ void Functionality::reader(std::string path, std::string id, std::string name, d
 
     for (int i = 0; i < names.size(); i++)
     {
-
         cout << "\n"
              << id << i << " "
              << names.at(i) << " "
@@ -514,7 +460,7 @@ void Functionality::reader(std::string path, std::string id, std::string name, d
              << endl;
     }
 }
-
+// writes the stock back to the file
 void Functionality::stock_writer(std::string path)
 {
 
@@ -528,11 +474,38 @@ void Functionality::stock_writer(std::string path)
 
     for (int i = 0; i < names.size(); i++)
     {
-
         writer << names[i] << " " << prices[i] << " " << quantities[i] << endl;
     }
 }
 
+// choice of the product
+int Functionality::choice_product(std::string name)
+{
+
+    int choice;
+
+    cout << name << '\n'
+         << " CDs --------> 0 " << '\n'
+         << " DVDs -------> 1 " << '\n'
+         << " Magazines --> 2 " << '\n'
+         << " Books ------> 3 " << '\n'
+         << "\n Main Menu --> 4 " << '\n'
+         << "Please Select the product: ";
+
+    cin >> choice;
+
+    if (cin.fail())
+    {
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Wrong format! Please try again" << endl;
+        func.choice_product(name);
+    }
+    else
+    {
+        return choice;
+    }
+}
 // SELLING ITEM METHOD
 void Functionality::selling(int &product, std::string path)
 {
@@ -546,10 +519,9 @@ void Functionality::selling(int &product, std::string path)
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "\nAvailable: " << total_products << '\n'
-             << "Please insert the integer of the product eg. 001 = 1" << endl;
-        cout << "\n"
-             << "Please insert which item you would like to purchase: ";
+        cout << "\nAvailable: " << total_products
+             << "\nPlease insert the integer of the product eg. 001 = 1" << endl;
+        cout << "\nPlease insert which item you would like to purchase: ";
         cin >> product_chosen;
 
         if (quantities[product_chosen] <= 0)
@@ -568,22 +540,17 @@ void Functionality::selling(int &product, std::string path)
         if ((product_quantity > quantities[product_chosen]))
             cout << "\nI am sorry but we don't have that many at the moment" << endl;
 
-    } while ((product_quantity > quantities[product_chosen]) || (product_quantity == 0) || cin.fail());
+    } while ((product_quantity > quantities[product_chosen]) || (product_quantity <= 0) || cin.fail());
 
     do
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "\n"
-             << "You have selected " << names[product_chosen] << " and the amount is " << product_quantity
-             << " \n"
-             << "Are you sure you want to proceed?"
-             << "\n"
-             << "Yes ---> 1"
-             << "\n"
-             << "No ----> 0"
-             << "\n"
-             << "Answer: ";
+        cout << "\nYou have selected " << names[product_chosen] << " and the amount is " << product_quantity
+             << "\nAre you sure you want to proceed?"
+             << "\n Yes ---> 1"
+             << "\n  No ---> 0"
+             << "\nAnswer: ";
 
         cin >> confirm;
     } while ((confirm < 0 || confirm > 1) || cin.fail());
@@ -606,7 +573,7 @@ void Functionality::selling(int &product, std::string path)
             cout << "\nWould you like to sell something else? " << '\n'
                  << " Yes --> 1" << '\n'
                  << "  No --> 0" << '\n'
-                 << " Type your choice: ";
+                 << "Type your choice: ";
 
             cin >> yes_or_no;
         } while ((yes_or_no < 0 || yes_or_no > 1) || cin.fail());
@@ -641,8 +608,7 @@ void Functionality::adding_item(std::string path, std::string id, std::string na
 
         //  needs to accept only strings
         cout << "Please insert the name of the new product: " << endl;
-        //cin >> name_product;
-        getline(cin, name_product);
+        cin >> name_product;
     } while (isdigit(name_product[0]));
 
     names.push_back(name_product);
@@ -678,14 +644,10 @@ void Functionality::adding_item(std::string path, std::string id, std::string na
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "\n"
-             << "Would you like to add another item?"
-             << "\n"
-             << " Yes ---> 1"
-             << "\n"
-             << "  No ---> 0"
-             << "\n"
-             << "Please Select choice: ";
+        cout << "\n Would you like to add another item?"
+             << "\n Yes ---> 1"
+             << "\n  No ---> 0"
+             << "\nPlease Select choice: ";
         cin >> choice;
     } while ((choice < 0 || choice > 1) || cin.fail());
 
@@ -733,13 +695,4 @@ string Functionality::current_time()
     current_time = dt;
 
     return current_time;
-}
-
-bool true_false(int x)
-{
-
-    if (x == 0 || x == 3 || x == 6)
-        return 1;
-    else
-        return 0;
 }

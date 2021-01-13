@@ -32,4 +32,11 @@
 
 5 of Bob have been sold Mon Jan 11 13:56:01 2021
 
+5 of Mozart have been sold Tue Jan 12 23:31:45 2021
+
+2 of H.Potter have been sold Tue Jan 12 23:59:17 2021
+
+5 of Piano have been sold Tue Jan 12 23:59:54 2021
+
+5 of Guitars have been sold Wed Jan 13 00:02:42 2021
 

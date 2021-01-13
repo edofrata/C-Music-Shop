@@ -484,7 +484,7 @@ int Functionality::choice_product(std::string name)
 
     int choice;
 
-    cout << name << '\n'
+    cout << '\n' << name << '\n'
          << " CDs --------> 0 " << '\n'
          << " DVDs -------> 1 " << '\n'
          << " Magazines --> 2 " << '\n'
@@ -498,7 +498,7 @@ int Functionality::choice_product(std::string name)
     {
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Wrong format! Please try again" << endl;
+        cout << "\nWrong format! Please try again" << endl;
         func.choice_product(name);
     }
     else

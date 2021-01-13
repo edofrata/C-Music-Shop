@@ -365,33 +365,22 @@ void Database::sale_report()
     if (choice_file == 1)
     {
 
-        do
-        {
-
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << " \nWhich OS you have? "
-
-                 << " \nWindows/Linux ---> 0 "
-
-                 << " \nMacOS  ----------> 1 "
-
-                 << "\nSelect Choice: ";
-
-            cin >> os_choice;
-        } while ((os_choice < 0 || os_choice > 1) || cin.fail());
-
-        switch (os_choice)
+        switch (func.get_os_name())
         {
 
         case 0:
             system("database_file/sale_report.txt");
+            cout << "Sucessfully opened in Windows/Linux" << endl;
             user();
             break;
         case 1:
-
             system("open database_files/sale_report.txt");
+            cout << "\nSucessfully opened in Mac" << endl;
             user();
+            break;
+        default:
+            cout << "\nThere might have been a problem" << endl;
+            sale_report();
             break;
         }
     }
@@ -484,7 +473,8 @@ int Functionality::choice_product(std::string name)
 
     int choice;
 
-    cout << '\n' << name << '\n'
+    cout << '\n'
+         << name << '\n'
          << " CDs --------> 0 " << '\n'
          << " DVDs -------> 1 " << '\n'
          << " Magazines --> 2 " << '\n'
@@ -695,4 +685,16 @@ string Functionality::current_time()
     current_time = dt;
 
     return current_time;
+}
+int Functionality::get_os_name()
+{
+#ifdef _WIN32
+    return 0;
+#elif _WIN64
+    return 0;
+#elif __APPLE__ || __MACH__
+    return 1;
+#elif __linux__
+    return 0;
+#endif
 }

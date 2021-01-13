@@ -45,6 +45,8 @@ public:
     string current_time();
     
     int choice_product(std::string name);
+
+    int get_os_name();
 };
 
 struct Cd_stock : public Database

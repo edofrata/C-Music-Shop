@@ -332,7 +332,6 @@ void Database::sell_item()
 void Database::sale_report()
 {
     int choice_file;
-    int os_choice;
 
     if (reports.empty())
     {
@@ -369,13 +368,18 @@ void Database::sale_report()
         {
 
         case 0:
-            system("database_file/sale_report.txt");
-            cout << "Sucessfully opened in Windows/Linux" << endl;
+            system("notepad database_files/sale_report.txt");
+            cout << "Sucessfully opened in Windows" << endl;
             user();
             break;
         case 1:
             system("open database_files/sale_report.txt");
             cout << "\nSucessfully opened in Mac" << endl;
+            user();
+            break;
+        case 2:
+            system("emacs database_files/sale_report.txt");
+            cout << "\nSuccessfully opened in Linux" << endl;
             user();
             break;
         default:
@@ -695,6 +699,6 @@ int Functionality::get_os_name()
 #elif __APPLE__ || __MACH__
     return 1;
 #elif __linux__
-    return 0;
+    return 2;
 #endif
 }

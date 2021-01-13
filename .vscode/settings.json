@@ -57,5 +57,6 @@
         "streambuf": "cpp",
         "thread": "cpp",
         "typeinfo": "cpp"
-    }
+    },
+    "code-runner.clearPreviousOutput": true
 }

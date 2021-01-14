@@ -1,4 +1,6 @@
 Elvis 12.99 24
 Beethoven 10.99 40
-Mozart 14.99 65
-Queen 17.99 30
+Mozart 14.99 70
+Queen 17.99 60
+test 6.89 10
+test2 2.99 5
